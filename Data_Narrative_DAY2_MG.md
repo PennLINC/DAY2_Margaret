@@ -152,14 +152,31 @@ Skipping PMACS backup for now, will talk with Ted about getting an account
 * GitHub Link to final CuBIDS csvs: 
 BIDS Validation:
 * Ran validate and group simultanously as per The WAY, outputs saved to sandbox/validator_outputs.
-* On first validation, found:
+* Iteration 1:
 EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
+
 INCONSISTENT_SUBJECTS ( Not all subjects contain the same files. Each subject should contain the same number of files with the same naming unless some files are known to be missing. ) : 806 subjects
+
 INCONSISTENT_PARAMETERS ( Not all subjects/sessions/runs have the same scanning parameters. ) : 24 subjects
+
+README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 subjects
+
+NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
+
+* Iteration 1.2 (Reran validation with --ignore_nifti_headers and --ignore_subject_consistency, no modifications to datafiles:
+
+EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
 README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 subjects
 NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
    
-*counts using  validator_err_counts.ipynb*
+*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/e83eb697e7730f77ee4f702ec3b29ecb9165fe95/validator_err_counts.ipynb) *
+
+* BIDs groups reviewed by Ted Satterthwaite and Tinashe Tapera
+   * reviewed subject files for duplicates, no subj with more than one T1w or each type of fmap (phase1, phase2, magnitude1, magnitude2)
+   * * 124 subj have phase1, 119 have phase2, 118 have magnitude1, 118 have magnitude2
+   * identified 3 subjects who have T2 data (KeyParamGroup=datatype-anat_suffix-T2w__1) in addition to T1 that compromise AcqGroup 3
+
+*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/e83eb697e7730f77ee4f702ec3b29ecb9165fe95/validator_err_counts.ipynb) *
 
 * Describe additions, deletions, and metadata changes (if any).
 
