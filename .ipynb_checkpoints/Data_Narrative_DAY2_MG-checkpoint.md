@@ -11,7 +11,7 @@
 
 * Why does PennLINC need this data?
 * For which project(s) is it intended? Please link to project pages below:
-* Goal is to curate in BIDS
+* Goal is to curate and preprocess data
 
 ### Data Acquisition
 
@@ -32,13 +32,12 @@
 * From where was the data downloaded?
 * Where is it currently being stored?
 * What form is the data in upon intial download (DICOMS, NIFTIS, something else?)
-* Are you using Datalad? If so, at which point did you check the data into datalad?
 * Is the data backed up in a second location? If so, please provide the path to the backup location:
 **copy prior**
 Data was stored as nifti files in /cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2.
-Data was copied to sub-project folder /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021.
+Data was copied by Margaret to sub-project folder /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021.
 
-JSON's withi origial_data were updated using cubids-add-nifti-info.
+JSON's within origial_data were updated using cubids-add-nifti-info.
 
 Listing metadata fields using cubids-print-metadata-fields resulted:
 Acknowledgements
@@ -122,28 +121,13 @@ template
 Running cubids-remove-metadata-fields resulted no PHI fields for removal.
 
 Data checked into DataLad (/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS (dataset)) via:
-
-(margaret_reward) [wolfsatterthwaitereward@cubic-login3 curation]$ datalad save -m "add initial data" curation
-[ERROR  ] NoDatasetFound(No dataset found at '/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation' for the purpose 'save'.  Specify a dataset to work with by providing its path via the `dataset` option, or change the current working directory to be in a dataset.) (NoDatasetFound) 
-usage: datalad save [-h] [-m MESSAGE] [-d DATASET] [-t ID] [-r] [-R LEVELS]
-                    [-u] [-F MESSAGE_FILE] [--to-git] [-J NJOBS] [--amend]
-                    [--version]
-                    [PATH [PATH ...]]
-(margaret_reward) [wolfsatterthwaitereward@cubic-login3 curation]$ cd ..(margaret_reward) [wolfsatterthwaitereward@cubic-login3 Day2]$ datalad save -m "add initial data" ./curation/BIDS
-[ERROR  ] NoDatasetFound(No dataset found at '/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2' for the purpose 'save'.  Specify a dataset to work with by providing its path via the `dataset` option, or change the current working directory to be in a dataset.) (NoDatasetFound) 
-usage: datalad save [-h] [-m MESSAGE] [-d DATASET] [-t ID] [-r] [-R LEVELS]
-                    [-u] [-F MESSAGE_FILE] [--to-git] [-J NJOBS] [--amend]
-                    [--version]
-                    [PATH [PATH ...]]
-(margaret_reward) [wolfsatterthwaitereward@cubic-login3 Day2]$ datalad save -m "add initial data" -d ./curation/BIDS 
-
-**modification to The Way, had to specify -d**
+$ datalad save -m "add initial data" -d ./curation/BIDS 
 
 action summary:                                                               
   add (ok: 2448)
   save (ok: 1)
   
-Skipping PMACS backup for now, will talk with Ted about getting an account
+*Skipping PMACS backup for now*
 
 ### Curation Process
 
@@ -152,6 +136,7 @@ Skipping PMACS backup for now, will talk with Ted about getting an account
 * GitHub Link to final CuBIDS csvs: 
 BIDS Validation:
 * Ran validate and group simultanously as per The WAY, outputs saved to sandbox/validator_outputs.
+
 * Iteration 1:
 EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
 
@@ -169,14 +154,18 @@ EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If 
 README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 subjects
 NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
    
-*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/e83eb697e7730f77ee4f702ec3b29ecb9165fe95/validator_err_counts.ipynb) *
+*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
 * BIDs groups reviewed by Ted Satterthwaite and Tinashe Tapera
    * reviewed subject files for duplicates, no subj with more than one T1w or each type of fmap (phase1, phase2, magnitude1, magnitude2)
-   * * 124 subj have phase1, 119 have phase2, 118 have magnitude1, 118 have magnitude2
+   * * 118 subj have full set of phase1&2, magnitude1&2 files
+   * * 4 subj have only phasediff files (mislabeled phase1) but no magnitude files
+   * * 1 subj has only phase1 & phase2 files but no magnitude files
    * identified 3 subjects who have T2 data (KeyParamGroup=datatype-anat_suffix-T2w__1) in addition to T1 that compromise AcqGroup 3
 
-*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/e83eb697e7730f77ee4f702ec3b29ecb9165fe95/validator_err_counts.ipynb) *
+*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
+
+* to do: remove fmap files for 5 subj without complete set, remove T2 & regroup!
 
 * Describe additions, deletions, and metadata changes (if any).
 
