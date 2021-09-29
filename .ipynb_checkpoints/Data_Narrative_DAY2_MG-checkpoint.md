@@ -136,7 +136,7 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
 * GitHub Link to final CuBIDS csvs: 
 
 ####BIDS Validation:
-* Ran validate and group simultanously as per The WAY, outputs saved to sandbox/validator_outputs.
+* Ran validate and group simultanously as per The WAY, outputs saved to sandbox/validator_outputs/iteration1.
 
 * Iteration 1:
     EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
@@ -166,7 +166,7 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
    * * 5 subj have only phasediff files (mislabeled phase1) but no magnitude files
    * * 1 subj has only phase1 & phase2 files but no magnitude files
    * identified 3 subjects who have T2 data (KeyParamGroup=datatype-anat_suffix-T2w__1) in addition to T1 that compromise AcqGroup 3
-   * Plan to add A/B designation task entity for files to disambiguate task version (cardA,cardB, faceA, or faceB) performed during each run. Data currently contained in SeriesDescription, see [task-match.ipynb]
+   * Plan to add A/B designation task entity for files to disambiguate task version (cardA,cardB, faceA, or faceB) performed during each run. Data currently contained in SeriesDescription, see [task-match.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/f35fb7bdb2422b72d42d9328dd5644e7b5ddba12/notebooks/task-match.ipynb)
 
 *counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
@@ -177,11 +177,15 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
    * fmap files to be removed written to Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt using [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
    cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt
    
-   * to do: regroup!
+   * Reran cubids-validator iter2 with --ignore_nifti_headers and --ignore_subject_consistency flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb]).
+   * Reran cubids-group - still resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb]):
+acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-card
+acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-face
+acquisition-VARIANTNoFmap_datatype-func_run-1_suffix-bold_task-face
+acquisition-VARIANTObliquityNoFmap_datatype-func_suffix-bold_task-rest
+acquisition-VARIANTNoFmap_datatype-func_suffix-bold_task-rest
+  
    * to do: rename task entity
-
-
-* Describe additions, deletions, and metadata changes (if any).
 
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
