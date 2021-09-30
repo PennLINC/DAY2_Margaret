@@ -159,8 +159,10 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
    
 *counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
+* BIDS curation approved by Ted Satterthwaite and Tinashe Tapera on 9/21/21, last validator output of original data available at /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/d2_r2_validation.csv. Data backed up to datalad. **backup to PMACS**
+
 ####BIDS Optimization:
-* BIDs groups from Iteration 1.2 reviewed by Ted Satterthwaite and Tinashe Tapera
+* BIDs groups from Iteration 1.2 reviewed by Ted and Tinashe 
    * reviewed subject files for duplicates, no subj with more than one T1w or each type of fmap (phase1, phase2, magnitude1, magnitude2)
    * * 118 subj have full set of phase1&2, magnitude1&2 files
    * * 5 subj have only phasediff files (mislabeled phase1) but no magnitude files
@@ -184,7 +186,46 @@ acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-face
 acquisition-VARIANTNoFmap_datatype-func_run-1_suffix-bold_task-face
 acquisition-VARIANTObliquityNoFmap_datatype-func_suffix-bold_task-rest
 acquisition-VARIANTNoFmap_datatype-func_suffix-bold_task-rest
-  
+   * Groupings approved by Ted and Tinashe, ran cubids-apply without modifications to iter2_summary or iter2_files:
+   cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply1
+   * *cubids-apply created apply1_full_cmd.sh (renamed to apply1a_full_cmd.sh) but unsuccessful in renaming files; internet disconnected and wasn't able to copy error from jupyter terminal, reran command and reproduced error:
+   '[INFO   ] Making sure inputs are available (this may take some time) 
+INFO   :datalad.core.local.run:Making sure inputs are available (this may take some time)
+[INFO   ] == Command start (output follows) ===== 
+INFO   :datalad.core.local.run:== Command start (output follows) =====
+bash: code/iterations/apply1_full_cmd.sh: No such file or directory
+[INFO   ] == Command exit (modification check follows) ===== 
+INFO   :datalad.core.local.run:== Command exit (modification check follows) =====
+[INFO   ] The command had a non-zero exit code. If this is expected, you can save the changes with 'datalad save -d . -r -F BIDS/.git/COMMIT_EDITMSG' 
+INFO   :datalad.core.local.run:The command had a non-zero exit code. If this is expected, you can save the changes with 'datalad save -d . -r -F BIDS/.git/COMMIT_EDITMSG'
+Traceback (most recent call last):
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/bin/cubids-apply", line 33, in <module>
+    sys.exit(load_entry_point('cubids', 'console_scripts', 'cubids-apply')())
+  File "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/CuBIDS/cubids/cli.py", line 382, in cubids_apply
+    bod.apply_csv_changes(str(opts.edited_summary_csv),
+  File "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/CuBIDS/cubids/cubids.py", line 293, in apply_csv_changes
+    self.datalad_handle.run(cmd=["bash", new_prefix +
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/distribution/dataset.py", line 503, in apply_func
+    return f(**kwargs)
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/interface/utils.py", line 483, in eval_func
+    return return_func(generator_func)(*args, **kwargs)
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/interface/utils.py", line 476, in return_func
+    results = list(results)
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/interface/utils.py", line 396, in generator_func
+    for r in _process_results(
+    for res in results:
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/core/local/run.py", line 271, in __call__
+    for r in run_command(cmd, dataset=dataset,
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/core/local/run.py", line 808, in run_command
+    raise exc
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/core/local/run.py", line 562, in _execute_command
+    runner.run(
+  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/cmd.py", line 168, in run
+    raise CommandError(
+datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/apply1_full_cmd.sh' failed with exitcode 127 under /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS'
+    
+    
+   * rerunning groupings per Tinashe's request to rename lengthy T1w keygroups 
    * to do: rename task entity
 
 ### Preprocessing Pipelines 
