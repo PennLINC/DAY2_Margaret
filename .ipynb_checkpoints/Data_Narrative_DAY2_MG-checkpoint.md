@@ -157,7 +157,7 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
 
     NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
    
-*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
+*counts using  [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
 * BIDS curation approved by Ted Satterthwaite and Tinashe Tapera on 9/21/21, last validator output of original data available at /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/d2_r2_validation.csv. Data backed up to datalad. **backup to PMACS**
 
@@ -168,19 +168,19 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
    * * 5 subj have only phasediff files (mislabeled phase1) but no magnitude files
    * * 1 subj has only phase1 & phase2 files but no magnitude files
    * identified 3 subjects who have T2 data (KeyParamGroup=datatype-anat_suffix-T2w__1) in addition to T1 that compromise AcqGroup 3
-   * Plan to add A/B designation task entity for files to disambiguate task version (cardA,cardB, faceA, or faceB) performed during each run. Data currently contained in SeriesDescription, see [task-match.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/f35fb7bdb2422b72d42d9328dd5644e7b5ddba12/notebooks/task-match.ipynb)
+   * Plan to add A/B designation task entity for files to disambiguate task version (cardA,cardB, faceA, or faceB) performed during each run. Data currently contained in SeriesDescription, see [task-match.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/f35fb7bdb2422b72d42d9328dd5644e7b5ddba12/notebooks/task-match.ipynb)
 
-*counts using  [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
+*counts using  [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
 * Iteration 2
    * made sure all files in curation/BIDS checked into datalad
-   * T2 files to be removed written to code/sandbox/T2w.txt using [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
+   * T2 files to be removed written to code/sandbox/T2w.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
    cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/T2w.txt
-   * fmap files to be removed written to Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt using [validator_err_counts.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
+   * fmap files to be removed written to Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
    cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt
    
-   * Reran cubids-validator iter2 with --ignore_nifti_headers and --ignore_subject_consistency flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb]).
-   * Reran cubids-group - still resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb]):
+   * Reran cubids-validator iter2 with --ignore_nifti_headers and --ignore_subject_consistency flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/validator_parser.ipynb)).
+   * Reran cubids-group - still resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb)):
 acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-card
 acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-face
 acquisition-VARIANTNoFmap_datatype-func_run-1_suffix-bold_task-face
@@ -202,18 +202,26 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
 * Iteration 3
    **recommend rerunning group using a FULL path to all arguments. Then the running apply with those new files/summary csvs**
     * per Sydney Covitz's recommendations, reran cubids-group using full paths:
-    cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curationcode/iterations/iteration3/iter3
-   * resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb]):
+    cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration3/iter3
+   * resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb)):
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_run-2_suffix-bold_task-face
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_run-1_suffix-bold_task-face
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
    * reviewed with Sydney, discovered that prior cubids-apply attempts had succcessfully renamed IntendedFors field in fmap json's but exited before being able to rename the filenames (due to the fact that the files.csv had the /gpfs/fs001/ string in it because cubids-group was run using relative paths), resulting in "NoFmap" additions above. Per Sydney's recommendation running cubids-undo to un-rename IntendedFors; will rerun cubids-group and finally cubids-apply using abs. paths.
       * ran git clean -f -d to remove untracked changes in .ipynb_checkpoints
-      * ran cubids-undo, used [intendedfor_rename.ipynb] to verify once VARIANT renames had been cleared. Datalad executes undone tracked below:
+      * ran cubids-undo, used [intendedfor_rename.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/intendedfor_rename.ipynb) to verify once VARIANT renames had been cleared. Datalad executes undone tracked below:
           * HEAD is now at 69e473c Renamed IntendedFors
           * HEAD is now at 1ccd650 Renamed IntendedFors
-   
+          * HEAD is now at c8466c7 Renamed IntendedFors
+          * HEAD is now at abc67c1 Renamed IntendedFors
+          * HEAD is now at 26b23ee Renamed IntendedFors
+          * HEAD is now at edfb983 updating .ipynb
+ 
+ * Iteration 4  
+   * successfully removed all VARIANT intendedfors, rerunning:
+   cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4
+   * 
    * rerunning groupings per Tinashe's request to rename lengthy T1w keygroups 
    * to do: correct relative to abs. paths in The Way!
    rename task entity
