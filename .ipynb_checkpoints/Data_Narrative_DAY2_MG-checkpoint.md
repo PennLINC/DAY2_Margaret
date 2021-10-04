@@ -189,44 +189,34 @@ acquisition-VARIANTNoFmap_datatype-func_suffix-bold_task-rest
    * Groupings approved by Ted and Tinashe, ran cubids-apply without modifications to iter2_summary or iter2_files:
    cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply1
    * *cubids-apply created apply1_full_cmd.sh (renamed to apply1a_full_cmd.sh) but unsuccessful in renaming files; internet disconnected and wasn't able to copy error from jupyter terminal, reran command and reproduced error:
-   '[INFO   ] Making sure inputs are available (this may take some time) 
-INFO   :datalad.core.local.run:Making sure inputs are available (this may take some time)
-[INFO   ] == Command start (output follows) ===== 
-INFO   :datalad.core.local.run:== Command start (output follows) =====
-bash: code/iterations/apply1_full_cmd.sh: No such file or directory
-[INFO   ] == Command exit (modification check follows) ===== 
-INFO   :datalad.core.local.run:== Command exit (modification check follows) =====
-[INFO   ] The command had a non-zero exit code. If this is expected, you can save the changes with 'datalad save -d . -r -F BIDS/.git/COMMIT_EDITMSG' 
-INFO   :datalad.core.local.run:The command had a non-zero exit code. If this is expected, you can save the changes with 'datalad save -d . -r -F BIDS/.git/COMMIT_EDITMSG'
-Traceback (most recent call last):
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/bin/cubids-apply", line 33, in <module>
-    sys.exit(load_entry_point('cubids', 'console_scripts', 'cubids-apply')())
-  File "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/CuBIDS/cubids/cli.py", line 382, in cubids_apply
-    bod.apply_csv_changes(str(opts.edited_summary_csv),
-  File "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/CuBIDS/cubids/cubids.py", line 293, in apply_csv_changes
-    self.datalad_handle.run(cmd=["bash", new_prefix +
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/distribution/dataset.py", line 503, in apply_func
-    return f(**kwargs)
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/interface/utils.py", line 483, in eval_func
-    return return_func(generator_func)(*args, **kwargs)
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/interface/utils.py", line 476, in return_func
-    results = list(results)
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/interface/utils.py", line 396, in generator_func
-    for r in _process_results(
-    for res in results:
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/core/local/run.py", line 271, in __call__
-    for r in run_command(cmd, dataset=dataset,
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/core/local/run.py", line 808, in run_command
-    raise exc
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/core/local/run.py", line 562, in _execute_command
-    runner.run(
-  File "/cbica/projects/wolf_satterthwaite_reward/miniconda3/envs/margaret_reward/lib/python3.8/site-packages/datalad/cmd.py", line 168, in run
     raise CommandError(
 datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/apply1_full_cmd.sh' failed with exitcode 127 under /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS'
-    
-    
+   * decided to edit iter2_summary.csv and rerun per Tinashe's request to rename lengthy T1w keygroups, then will try to solve cubids-apply error
+        * renamed:
+            * KeyParamGroup datatype-anat_suffix-T1w__3 to acquisition-VARIANTAllwithParallelReductionFactorInPlane_datatype-anat_suffix-T1w 
+            * KeyParamGroup datatype-anat_suffix-T1w__4 to acquisition-VARIANTAll_datatype-anat_suffix-T1w
+      
+   Ran cubids-apply with above modifications to iter2_summary.csv:
+   cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply2
+   
+* Iteration 3
+   **recommend rerunning group using a FULL path to all arguments. Then the running apply with those new files/summary csvs**
+    * per Sydney Covitz's recommendations, reran cubids-group using full paths:
+    cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curationcode/iterations/iteration3/iter3
+   * resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb]):
+acquisition-VARIANTNumVolumesNoFmap_datatype-func_run-2_suffix-bold_task-face
+acquisition-VARIANTNumVolumesNoFmap_datatype-func_run-1_suffix-bold_task-face
+acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
+acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
+   * reviewed with Sydney, discovered that prior cubids-apply attempts had succcessfully renamed IntendedFors field in fmap json's but exited before being able to rename the filenames (due to the fact that the files.csv had the /gpfs/fs001/ string in it because cubids-group was run using relative paths), resulting in "NoFmap" additions above. Per Sydney's recommendation running cubids-undo to un-rename IntendedFors; will rerun cubids-group and finally cubids-apply using abs. paths.
+      * ran git clean -f -d to remove untracked changes in .ipynb_checkpoints
+      * ran cubids-undo, used [intendedfor_rename.ipynb] to verify once VARIANT renames had been cleared. Datalad executes undone tracked below:
+          * HEAD is now at 69e473c Renamed IntendedFors
+          * HEAD is now at 1ccd650 Renamed IntendedFors
+   
    * rerunning groupings per Tinashe's request to rename lengthy T1w keygroups 
-   * to do: rename task entity
+   * to do: correct relative to abs. paths in The Way!
+   rename task entity
 
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
