@@ -20,7 +20,7 @@
 * Where was the data acquired? 
 * Describe the data. What type of information do we have? Things to specify include:
    * number of subjects = 125
-   * types of images = bold (2 runs task-face, 2 runs task-card, rest), T1,  
+   * types of images = bold (2 runs task-face, 2 runs task-card, rest), T1, 
    * demographic data
    * clinical/cognitive data
    * any canned QC data
@@ -221,21 +221,33 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
  * Iteration 4  
    * successfully removed all VARIANT intendedfors, rerunning:
    cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4
-   * 
-   * rerunning groupings per Tinashe's request to rename lengthy T1w keygroups 
-   * to do: correct relative to abs. paths in The Way!
-   rename task entity
+   * reviewed groupings against iter2 using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb), no changes. Renamed the lengthy T1w keygroups per Tinashe's request: 
+     * datatype-anat_suffix-T1w__3 : acquisition-VARIANTAllwithParallelReductionFactorInPlane_datatype-anat_suffix-T1w
+     * datatype-anat_suffix-T1w__4 : acquisition-VARIANTAll_datatype-anat_suffix-T1w
+   * ran: cubids-apply --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_summary.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_files.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2
+   * cubids-apply successful 
+   * ran cubids-validate, no new errors:
+    EVENTS_TSV_MISSING : 495 subjects
+    README_FILE_MISSING : 1 subjects
+    NO_AUTHORS : 1 subjects
 
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
-   * Pipeline Name: 
-   * Who is responsible for running preprocessing pipelines/audits on this data?
-   * Where are you running these pipelines? CUBIC? PMACS? Somewhere else?
-   * Did you implement exemplar testing? If so, please fill out the information below:
-      * Path to exemplar dataset:
-      * Path to exemplar outputs:
-      * GitHub Link to exemplar audit:
-    * For production testing, please fill out the information below:
+* fMRIPrep
+   * Margaret Gardner is responsible for running preprocessing pipelines/audits on CUBIC
+   * Exemplar Testing:
+     * ran `cubids-copy-exemplars --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_dir /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2_AcqGrouping.csv`
+      * Path to exemplar dataset (annexed to datalad): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_dir 
+      * Path to fmriprep container (.sif copied from dropbox, annexed to datalad): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_test/fmriprep-container
+    ** ran `$(tail -n 1 code/qsub_calls.sh)` w/out modifications to participant_job.sh or fmriprep_zip.sh but no output branch created and didn't save job number
+    ** reran `$(tail -n 1 code/qsub_calls.sh)` w/out modifications to participant_job.sh or fmriprep_zip.sh
+      * Your job 1396175 ("fpsub-12583") has been submitted
+      * job writing to analysis/logs but seems unable to create new datalad branch (pushingitremote... line 32: datalad: command not found); 
+    ** edited `participant_job.sh` to correct conda environment (from base to margaret_reward) and run job in /cbica/comp_space; failed b/c had comments in-line on fmriprep_zip.sh
+    ** reviewed with Tinashe and edited fmriprep_zip.sh; reran job 1424461 ("fpsub-12583") has been submitted
+       * Path to exemplar outputs:
+       * GitHub Link to exemplar audit:
+   * For production testing, please fill out the information below:
       * Path to production inputs:
       * GitHub Link to production outputs:
       * GitHub Link to production audit: 
@@ -250,3 +262,8 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
    * GitHub Link(s) to result(s)
    * Did you use pennlinckit?  
       * https://github.com/PennLINC/PennLINC-Kit/tree/main/pennlinckit  
+
+
+### To Do 
+    * rename task entity
+    * try running fmriprep line by line (participant_job.sh line 21)
