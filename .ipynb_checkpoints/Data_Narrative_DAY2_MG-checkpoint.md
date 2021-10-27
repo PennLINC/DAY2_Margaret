@@ -35,12 +35,12 @@
 * Is the data backed up in a second location? If so, please provide the path to the backup location:
 **copy prior**
 
-Data was stored as nifti files in /cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2.
-Data was copied by Margaret to sub-project folder /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021.
+Data was stored as nifti files in `/cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2`.
+Data was copied by Margaret to sub-project folder `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021`.
 
-JSON's within origial_data were updated using cubids-add-nifti-info.
+JSON's within origial_data were updated using `cubids-add-nifti-info`.
 
-* Listing metadata fields using cubids-print-metadata-fields resulted:
+* Listing metadata fields using `cubids-print-metadata-fields` resulted:
     * Acknowledgements
     * AcquisitionMatrixPE
     * AcquisitionNumber
@@ -121,13 +121,12 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
 
     Running cubids-remove-metadata-fields resulted no PHI fields for removal.
 
-* Data checked into DataLad (/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS (dataset)) via:
-    datalad save -m "add initial data" -d ./curation/BIDS 
-    action summary:                                                               
+* Data checked into DataLad `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS (dataset)` via `datalad save -m "add initial data" -d ./curation/BIDS` 
+    `action summary:                                                               
       add (ok: 2448)
-      save (ok: 1) 
+      save (ok: 1)` 
   
-* Skipping PMACS backup for now *
+*Skipping PMACS backup for now*
 
 ### Curation Process
 
@@ -135,8 +134,9 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
 * GitHub Link to curation scripts/heurstics: 
 * GitHub Link to final CuBIDS csvs: 
 
-####BIDS Validation:
-* Ran validate and group simultanously as per The WAY, outputs saved to sandbox/validator_outputs/iteration1.
+#### BIDS Validation:
+
+* Ran validate and group simultanously as per The WAY, outputs saved to `sandbox/validator_outputs/iteration1`.
 
 * Iteration 1:
     EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
@@ -149,7 +149,7 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
 
     NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
 
-* Iteration 1.2 (Reran validation with --ignore_nifti_headers and --ignore_subject_consistency, no modifications to datafiles:
+* Iteration 1.2 (Reran validation with `--ignore_nifti_headers` and `--ignore_subject_consistency`, no modifications to datafiles:
 
     EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
     
@@ -159,9 +159,9 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
    
 *counts using  [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
-* BIDS curation approved by Ted Satterthwaite and Tinashe Tapera on 9/21/21, last validator output of original data available at /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/d2_r2_validation.csv. Data backed up to datalad. **backup to PMACS**
+* BIDS curation approved by Ted Satterthwaite and Tinashe Tapera on 9/21/21, last validator output of original data available at `/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/d2_r2_validation.csv`. Data backed up to datalad. **backup to PMACS**
 
-####BIDS Optimization:
+#### BIDS Optimization:
 * BIDs groups from Iteration 1.2 reviewed by Ted and Tinashe 
    * reviewed subject files for duplicates, no subj with more than one T1w or each type of fmap (phase1, phase2, magnitude1, magnitude2)
    * * 118 subj have full set of phase1&2, magnitude1&2 files
@@ -174,43 +174,42 @@ JSON's within origial_data were updated using cubids-add-nifti-info.
 
 * Iteration 2
    * made sure all files in curation/BIDS checked into datalad
-   * T2 files to be removed written to code/sandbox/T2w.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
-   cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/T2w.txt
-   * fmap files to be removed written to Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran cubids-purge:
-   cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt
+   * T2 files to be removed written to code/sandbox/T2w.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran `cubids-purge`:
+   `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/T2w.txt`
+   * fmap files to be removed written to Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran `cubids-purge`:
+   `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt`
    
-   * Reran cubids-validator iter2 with --ignore_nifti_headers and --ignore_subject_consistency flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/validator_parser.ipynb)).
-   * Reran cubids-group - still resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb)):
+   * Reran `cubids-validator` iter2 with `--ignore_nifti_headers` and `--ignore_subject_consistency` flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/validator_parser.ipynb)).
+   * Reran `cubids-group` - still resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb)):
 acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-card
 acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-face
 acquisition-VARIANTNoFmap_datatype-func_run-1_suffix-bold_task-face
 acquisition-VARIANTObliquityNoFmap_datatype-func_suffix-bold_task-rest
 acquisition-VARIANTNoFmap_datatype-func_suffix-bold_task-rest
-   * Groupings approved by Ted and Tinashe, ran cubids-apply without modifications to iter2_summary or iter2_files:
-   cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply1
-   * *cubids-apply created apply1_full_cmd.sh (renamed to apply1a_full_cmd.sh) but unsuccessful in renaming files; internet disconnected and wasn't able to copy error from jupyter terminal, reran command and reproduced error:
-    raise CommandError(
-datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/apply1_full_cmd.sh' failed with exitcode 127 under /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS'
+   * Groupings approved by Ted and Tinashe, ran `cubids-apply` without modifications to iter2_summary or iter2_files:
+   `cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply1`
+   * `cubids-apply` created apply1_full_cmd.sh (renamed to apply1a_full_cmd.sh) but unsuccessful in renaming files; internet disconnected and wasn't able to copy error from jupyter terminal, reran command and reproduced error:
+    `raise CommandError(
+datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/apply1_full_cmd.sh' failed with exitcode 127 under /gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS'`
    * decided to edit iter2_summary.csv and rerun per Tinashe's request to rename lengthy T1w keygroups, then will try to solve cubids-apply error
         * renamed:
             * KeyParamGroup datatype-anat_suffix-T1w__3 to acquisition-VARIANTAllwithParallelReductionFactorInPlane_datatype-anat_suffix-T1w 
             * KeyParamGroup datatype-anat_suffix-T1w__4 to acquisition-VARIANTAll_datatype-anat_suffix-T1w
       
-   Ran cubids-apply with above modifications to iter2_summary.csv:
-   cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply2
+   Ran `cubids-apply` with above modifications to iter2_summary.csv:
+   `cubids-apply --use-datalad BIDS code/iterations/iteration2/iter2_summary.csv code/iterations/iteration2/iter2_files.csv code/iterations/apply2`
    
 * Iteration 3
-   **recommend rerunning group using a FULL path to all arguments. Then the running apply with those new files/summary csvs**
-    * per Sydney Covitz's recommendations, reran cubids-group using full paths:
-    cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration3/iter3
+    * per Sydney Covitz's recommendations, reran `cubids-group using` full paths:
+    `cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration3/iter3`
    * resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb)):
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_run-2_suffix-bold_task-face
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_run-1_suffix-bold_task-face
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
 acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
-   * reviewed with Sydney, discovered that prior cubids-apply attempts had succcessfully renamed IntendedFors field in fmap json's but exited before being able to rename the filenames (due to the fact that the files.csv had the /gpfs/fs001/ string in it because cubids-group was run using relative paths), resulting in "NoFmap" additions above. Per Sydney's recommendation running cubids-undo to un-rename IntendedFors; will rerun cubids-group and finally cubids-apply using abs. paths.
-      * ran git clean -f -d to remove untracked changes in .ipynb_checkpoints
-      * ran cubids-undo, used [intendedfor_rename.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/intendedfor_rename.ipynb) to verify once VARIANT renames had been cleared. Datalad executes undone tracked below:
+   * reviewed with Sydney, discovered that prior `cubids-apply` attempts had succcessfully renamed IntendedFors field in fmap json's but exited before being able to rename the filenames (due to the fact that the files.csv had the /gpfs/fs001/ string in it because cubids-group was run using relative paths), resulting in "NoFmap" additions above. Per Sydney's recommendation running `cubids-undo` to un-rename IntendedFors; reran `cubids-group` and finally `cubids-apply` using abs. paths.
+      * ran `git clean -f -d` to remove untracked changes in .ipynb_checkpoints
+      * ran `cubids-undo`, used [intendedfor_rename.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/intendedfor_rename.ipynb) to verify once VARIANT renames had been cleared. Datalad executes undone tracked below:
           * HEAD is now at 69e473c Renamed IntendedFors
           * HEAD is now at 1ccd650 Renamed IntendedFors
           * HEAD is now at c8466c7 Renamed IntendedFors
@@ -220,13 +219,13 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
  
  * Iteration 4  
    * successfully removed all VARIANT intendedfors, rerunning:
-   cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4
+   `cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4`
    * reviewed groupings against iter2 using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb), no changes. Renamed the lengthy T1w keygroups per Tinashe's request: 
      * datatype-anat_suffix-T1w__3 : acquisition-VARIANTAllwithParallelReductionFactorInPlane_datatype-anat_suffix-T1w
      * datatype-anat_suffix-T1w__4 : acquisition-VARIANTAll_datatype-anat_suffix-T1w
-   * ran: cubids-apply --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_summary.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_files.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2
-   * cubids-apply successful 
-   * ran cubids-validate, no new errors:
+   * ran: `cubids-apply --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_summary.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_files.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2`
+   * `cubids-apply` successful 
+   * ran `cubids-validate`, no new errors or warnings:
     EVENTS_TSV_MISSING : 495 subjects
     README_FILE_MISSING : 1 subjects
     NO_AUTHORS : 1 subjects
@@ -244,7 +243,8 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
       * Your job 1396175 ("fpsub-12583") has been submitted
       * job writing to analysis/logs but seems unable to create new datalad branch (pushingitremote... line 32: datalad: command not found); 
     ** edited `participant_job.sh` to correct conda environment (from base to margaret_reward) and run job in /cbica/comp_space; failed b/c had comments in-line on fmriprep_zip.sh
-    ** reviewed with Tinashe and edited fmriprep_zip.sh; reran job 1424461 ("fpsub-12583") has been submitted
+    ** reviewed with Tinashe and edited fmriprep_zip.sh; reran job 1424461 ("fpsub-12583") has been submitted - completed successfully
+    ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282
        * Path to exemplar outputs:
        * GitHub Link to exemplar audit:
    * For production testing, please fill out the information below:
@@ -265,5 +265,7 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
 
 
 ### To Do 
-    * rename task entity
-    * try running fmriprep line by line (participant_job.sh line 21)
+   * complete narrative info from prior to rotation
+   * backup to PMACS
+   * rename task entity
+   * try running fmriprep line by line (participant_job.sh line 21)
