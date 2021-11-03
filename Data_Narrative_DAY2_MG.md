@@ -230,6 +230,11 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
     README_FILE_MISSING : 1 subjects
     NO_AUTHORS : 1 subjects
 
+ * Iteration 5 
+   * 2 exemplar subjects (sub-15546, sub-16181, & sub-12235) failed running fmriprep due to abberant image shape (64, 64, 43) in fmap images. Each subject compromised a unique Acquisition group. Deleting all fmap images (listed using Dim3_err_fmaps.ipynb):
+   `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/fmap_to_rm2.txt`
+   * ran `cubids-group`
+
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
 * fMRIPrep
@@ -244,9 +249,31 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
       * job writing to analysis/logs but seems unable to create new datalad branch (pushingitremote... line 32: datalad: command not found); 
     ** edited `participant_job.sh` to correct conda environment (from base to margaret_reward) and run job in /cbica/comp_space; failed b/c had comments in-line on fmriprep_zip.sh
     ** reviewed with Tinashe and edited fmriprep_zip.sh; reran job 1424461 ("fpsub-12583") has been submitted - completed successfully
-    ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282
-       * Path to exemplar outputs:
-       * GitHub Link to exemplar audit:
+    ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282 & merged to merge_ds (with helo from Sydney & Matt - issues with merge failing since test sub-12583 had already been merged, followed their instruction to delete both sub-12583 branches since .zip files already present in merge_ds)
+    * error in sub-15546, sub-16181, & sub-12235 (fmap images with Dim3Size=43, unable to construct fmaps - removing all fmap images for these subjects, see **Iteration 5** above)
+    * sub-12583 (test sub) doesn't have branch in output_ria
+    * auditing error under `bash code/concat_outputs.sh`:
+    `Traceback (most recent call last):
+  File "code/concatenator.py", line 27, in <module>
+    df = pd.DataFrame(np.nan, index=range(0,1), columns=columns, dtype="string")
+NameError: name 'columns' is not defined
+[INFO   ] == Command exit (modification check follows) ===== 
+CommandError: 'python code/concatenator.py concat_ds/csvs /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/fmriprep-audit/FMRIPREP_AUDIT.csv' failed with exitcode 1 under /scratch/wolfsatterthwaitereward/tmp.WL1HnBKnz7/concat_ds`
+
+`>>> import pandas as pd
+>>> sub_df=pd.read_csv(str('sub-10180_fmriprep_audit.csv'))>>> columns = list (sub_df.columns)
+>>> import numpy as np
+>>> df = pd.DataFrame(np.nan, index=range(0,1), columns=columns, dtype="string")
+>>> print(df.columns)
+Index(['Unnamed: 0', 'SubjectID', 'HasOutput', 'HasHTML', 'NoErrorsToReport',
+       'HasFuncDir', 'HasBold', 'ProducedFuncDir', 'RanSurfBold', 'RanVolBold',
+       'HasErrorFile', 'RuntimeErrorDescription', 'OSErrorDescription',
+       'CommandErrorDescription', 'HadScratchSpace', 'HadRAMSpace',
+       'HadDiskSpace', 'FinishedSuccessfully', 'ValueError',
+       'ConnectionOpenFailError', 'Broken Pipe', 'HasT1'],
+      dtype='object')`
+       * Path to exemplar outputs: **should this be outputs_ria or a non-RIA clone?
+       * GitHub Link to exemplar audit: **result of my audit (csv)? Or the audit boostrap I used from github?
    * For production testing, please fill out the information below:
       * Path to production inputs:
       * GitHub Link to production outputs:
