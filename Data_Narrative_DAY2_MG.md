@@ -33,12 +33,11 @@
 * Where is it currently being stored?
 * What form is the data in upon intial download (DICOMS, NIFTIS, something else?)
 * Is the data backed up in a second location? If so, please provide the path to the backup location:
-**copy prior**
 
-Data was stored as nifti files in `/cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2`.
-Data was copied by Margaret to sub-project folder `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021`.
+* Data was stored as nifti files in `/cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2`.
+* Data was copied by Margaret to sub-project folder `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021`.
 
-JSON's within origial_data were updated using `cubids-add-nifti-info`.
+* JSON's within origial_data were updated using `cubids-add-nifti-info`.
 
 * Listing metadata fields using `cubids-print-metadata-fields` resulted:
     * Acknowledgements
@@ -136,12 +135,12 @@ JSON's within origial_data were updated using `cubids-add-nifti-info`.
 
 #### BIDS Validation:
 
-* Ran validate and group simultanously as per The WAY, outputs saved to `sandbox/validator_outputs/iteration1`.
+* Ran `cubids-validate` and `cubids-group` simultanously as per The WAY, outputs saved to `sandbox/validator_outputs/iteration1`.
 
 * Iteration 1:
-    EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
+    EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 counts
 
-    INCONSISTENT_SUBJECTS ( Not all subjects contain the same files. Each subject should contain the same number of files with the same naming unless some files are known to be missing. ) : 806 subjects
+    INCONSISTENT_SUBJECTS ( Not all subjects contain the same files. Each subject should contain the same number of files with the same naming unless some files are known to be missing. ) : 806 counts
 
     INCONSISTENT_PARAMETERS ( Not all subjects/sessions/runs have the same scanning parameters. ) : 24 subjects
 
@@ -149,13 +148,13 @@ JSON's within origial_data were updated using `cubids-add-nifti-info`.
 
     NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
 
-* Iteration 1.2 (Reran validation with `--ignore_nifti_headers` and `--ignore_subject_consistency`, no modifications to datafiles:
+* Iteration 1.2 (Reran `cubids-validate` with `--ignore_nifti_headers` and `--ignore_subject_consistency`, no modifications to datafiles:
 
-    EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 subjects
+    EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 scans
     
-    README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 subjects
+    README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 count
 
-    NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
+    NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 count
    
 *counts using  [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb) *
 
@@ -179,7 +178,7 @@ JSON's within origial_data were updated using `cubids-add-nifti-info`.
    * fmap files to be removed written to Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt using [validator_err_counts.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/7691b7cb97d56dc9ddd864899c9fed82452a4a47/notebooks/validator_err_counts.ipynb), ran `cubids-purge`:
    `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/iteration1.2/fmap_to_rm.txt`
    
-   * Reran `cubids-validator` iter2 with `--ignore_nifti_headers` and `--ignore_subject_consistency` flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb] (https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/validator_parser.ipynb)).
+   * Reran `cubids-validator` iter2 with `--ignore_nifti_headers` and `--ignore_subject_consistency` flags; outputs identical to Iteration 1.2 above (reviewed using [validator_parser.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/validator_parser.ipynb)).
    * Reran `cubids-group` - still resulted in 23 acquisition groups, including addition of 4 new KeyParamGroups (reviewed using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb)):
 acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-card
 acquisition-VARIANTNoFmap_datatype-func_run-2_suffix-bold_task-face
@@ -226,14 +225,20 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
    * ran: `cubids-apply --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_summary.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4_files.csv /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2`
    * `cubids-apply` successful 
    * ran `cubids-validate`, no new errors or warnings:
-    EVENTS_TSV_MISSING : 495 subjects
-    README_FILE_MISSING : 1 subjects
-    NO_AUTHORS : 1 subjects
+    EVENTS_TSV_MISSING : 495 scans
+    README_FILE_MISSING : 1 count
+    NO_AUTHORS : 1 count
 
  * Iteration 5 
-   * 2 exemplar subjects (sub-15546, sub-16181, & sub-12235) failed running fmriprep due to abberant image shape (64, 64, 43) in fmap images. Each subject compromised a unique Acquisition group. Deleting all fmap images (listed using Dim3_err_fmaps.ipynb):
+   * 3 exemplar subjects (sub-15546, sub-16181, & sub-12235) failed running fmriprep due to abberant image shape (64, 64, 43) in fmap images. Each subject compromised a unique Acquisition group. Deleting all fmap images (listed using Dim3_err_fmaps.ipynb):
    `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/fmap_to_rm2.txt`
-   * ran `cubids-group`
+   * ran `cubids-group`, new groups ID'd for above subj (NoFMap) that will be merged into existing NoFMap groups with `cubids-apply`
+   * ran `cubids-apply` without changes with prefix apply3, successful
+   * ran `cubids-validate`, parsed using [validator_parser.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/validator_parser.ipynb), no new errors or warnings:
+    EVENTS_TSV_MISSING : 495 scans
+    README_FILE_MISSING : 1 count
+    NO_AUTHORS : 1 count
+   * 
 
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
@@ -243,39 +248,20 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
      * ran `cubids-copy-exemplars --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_dir /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2_AcqGrouping.csv`
       * Path to exemplar dataset (annexed to datalad): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_dir 
       * Path to fmriprep container (.sif copied from dropbox, annexed to datalad): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_test/fmriprep-container
-    ** ran `$(tail -n 1 code/qsub_calls.sh)` w/out modifications to participant_job.sh or fmriprep_zip.sh but no output branch created and didn't save job number
-    ** reran `$(tail -n 1 code/qsub_calls.sh)` w/out modifications to participant_job.sh or fmriprep_zip.sh
-      * Your job 1396175 ("fpsub-12583") has been submitted
-      * job writing to analysis/logs but seems unable to create new datalad branch (pushingitremote... line 32: datalad: command not found); 
-    ** edited `participant_job.sh` to correct conda environment (from base to margaret_reward) and run job in /cbica/comp_space; failed b/c had comments in-line on fmriprep_zip.sh
-    ** reviewed with Tinashe and edited fmriprep_zip.sh; reran job 1424461 ("fpsub-12583") has been submitted - completed successfully
-    ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282 & merged to merge_ds (with helo from Sydney & Matt - issues with merge failing since test sub-12583 had already been merged, followed their instruction to delete both sub-12583 branches since .zip files already present in merge_ds)
-    * error in sub-15546, sub-16181, & sub-12235 (fmap images with Dim3Size=43, unable to construct fmaps - removing all fmap images for these subjects, see **Iteration 5** above)
-    * sub-12583 (test sub) doesn't have branch in output_ria
-    * auditing error under `bash code/concat_outputs.sh`:
-    `Traceback (most recent call last):
-  File "code/concatenator.py", line 27, in <module>
-    df = pd.DataFrame(np.nan, index=range(0,1), columns=columns, dtype="string")
-NameError: name 'columns' is not defined
-[INFO   ] == Command exit (modification check follows) ===== 
-CommandError: 'python code/concatenator.py concat_ds/csvs /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/fmriprep-audit/FMRIPREP_AUDIT.csv' failed with exitcode 1 under /scratch/wolfsatterthwaitereward/tmp.WL1HnBKnz7/concat_ds`
-
-`>>> import pandas as pd
->>> sub_df=pd.read_csv(str('sub-10180_fmriprep_audit.csv'))>>> columns = list (sub_df.columns)
->>> import numpy as np
->>> df = pd.DataFrame(np.nan, index=range(0,1), columns=columns, dtype="string")
->>> print(df.columns)
-Index(['Unnamed: 0', 'SubjectID', 'HasOutput', 'HasHTML', 'NoErrorsToReport',
-       'HasFuncDir', 'HasBold', 'ProducedFuncDir', 'RanSurfBold', 'RanVolBold',
-       'HasErrorFile', 'RuntimeErrorDescription', 'OSErrorDescription',
-       'CommandErrorDescription', 'HadScratchSpace', 'HadRAMSpace',
-       'HadDiskSpace', 'FinishedSuccessfully', 'ValueError',
-       'ConnectionOpenFailError', 'Broken Pipe', 'HasT1'],
-      dtype='object')`
+       ** ran `$(tail -n 1 code/qsub_calls.sh)` w/out modifications to participant_job.sh or fmriprep_zip.sh but no output branch created and didn't save job number
+       ** reran `$(tail -n 1 code/qsub_calls.sh)` w/out modifications to participant_job.sh or fmriprep_zip.sh
+        * Your job 1396175 ("fpsub-12583") has been submitted
+        * job writing to analysis/logs but seems unable to create new datalad branch (pushingitremote... line 32: datalad: command not found); 
+       ** edited `participant_job.sh` to correct conda environment (from base to margaret_reward) and run job in /cbica/comp_space; failed b/c had comments in-line on fmriprep_zip.sh
+       ** reviewed with Tinashe and edited fmriprep_zip.sh; reran job 1424461 ("fpsub-12583") has been submitted - completed successfully
+       ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282 & merged to merge_ds (with helo from Sydney & Matt - issues with merge failing since test sub-12583 had already been merged, followed their instruction to delete both sub-12583 branches since .zip files already present in merge_ds)
+        * error in sub-15546, sub-16181, & sub-12235 (fmap images with Dim3Size=43, unable to construct fmaps - removing all fmap images for these subjects, see **Iteration 5** above)
+     * sub-12583 (test sub) doesn't have branch in output_ria but is fine in audit
        * Path to exemplar outputs: **should this be outputs_ria or a non-RIA clone?
        * GitHub Link to exemplar audit: **result of my audit (csv)? Or the audit boostrap I used from github?
-   * For production testing, please fill out the information below:
-      * Path to production inputs:
+   * Production Testing:
+      * ran qsub_calls.sh, submitted jobs 1831777 through 1831903 
+      * Path to production inputs: 
       * GitHub Link to production outputs:
       * GitHub Link to production audit: 
 
@@ -292,7 +278,7 @@ Index(['Unnamed: 0', 'SubjectID', 'HasOutput', 'HasHTML', 'NoErrorsToReport',
 
 
 ### To Do 
-   * complete narrative info from prior to rotation
    * backup to PMACS
    * rename task entity
-   * try running fmriprep line by line (participant_job.sh line 21)
+   * get timing files
+   * run fmriprep from command line
