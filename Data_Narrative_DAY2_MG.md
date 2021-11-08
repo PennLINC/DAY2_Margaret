@@ -238,7 +238,6 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
     EVENTS_TSV_MISSING : 495 scans
     README_FILE_MISSING : 1 count
     NO_AUTHORS : 1 count
-   * 
 
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
@@ -260,7 +259,11 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
        * Path to exemplar outputs: **should this be outputs_ria or a non-RIA clone?
        * GitHub Link to exemplar audit: **result of my audit (csv)? Or the audit boostrap I used from github?
    * Production Testing:
-      * ran qsub_calls.sh, submitted jobs 1831777 through 1831903 
+      * ran qsub_calls.sh, submitted jobs 1831777 through 1831903
+      * only 84 files in logfile, 123 branches created under output_ria
+          * running `merge_outputs.sh` and audit to identify failed subj
+          * edited `concat_outputs.sh`(still old version on github) to pull tinashe's new [`concatenator.py` edits](https://raw.githubusercontent.com/PennLINC/RBC/TinasheMTapera-fix-concatenator/PennLINC/Generic/concatenator.py) and edited line 12 'concat_ds/csvs' to 'csvs'
+      * reviewed `FMRIPREP_AUDIT.csv`, 4 subj failed 
       * Path to production inputs: 
       * GitHub Link to production outputs:
       * GitHub Link to production audit: 
