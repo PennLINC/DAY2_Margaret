@@ -239,6 +239,11 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
     README_FILE_MISSING : 1 count
     NO_AUTHORS : 1 count
 
+* Iteration 6
+   * 3 subjects (sub-13373, sub-14858, sub-15709) failed fmriprep due to CRC error, deleting nifti files identified in log outputs:
+   `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/CRC_err_to_rm.txt`
+    * ran `cubids-group`, no new variants (no RenameKeyGroups for non-fmap KeyGroups) - Tinashe reviewed, no need for cubids-apply/validate
+    
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
 * fMRIPrep
@@ -256,15 +261,20 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
        ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282 & merged to merge_ds (with helo from Sydney & Matt - issues with merge failing since test sub-12583 had already been merged, followed their instruction to delete both sub-12583 branches since .zip files already present in merge_ds)
         * error in sub-15546, sub-16181, & sub-12235 (fmap images with Dim3Size=43, unable to construct fmaps - removing all fmap images for these subjects, see **Iteration 5** above)
      * sub-12583 (test sub) doesn't have branch in output_ria but is fine in audit
-       * Path to exemplar outputs: **should this be outputs_ria or a non-RIA clone?
-       * GitHub Link to exemplar audit: **result of my audit (csv)? Or the audit boostrap I used from github?
+       * Path to exemplar outputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/fmriprep/output_ria
    * Production Testing:
       * ran qsub_calls.sh, submitted jobs 1831777 through 1831903
       * only 84 files in logfile, 123 branches created under output_ria
           * running `merge_outputs.sh` and audit to identify failed subj
           * edited `concat_outputs.sh`(still old version on github) to pull tinashe's new [`concatenator.py` edits](https://raw.githubusercontent.com/PennLINC/RBC/TinasheMTapera-fix-concatenator/PennLINC/Generic/concatenator.py) and edited line 12 'concat_ds/csvs' to 'csvs'
-      * reviewed `FMRIPREP_AUDIT.csv`, 4 subj failed 
-      * Path to production inputs: 
+      * reviewed `FMRIPREP_AUDIT.csv`, 4 subj failed:
+          * sub-13373 - nipype.workflow ERROR: Node bold_to_std_transform.a0 failed to run on host 2119fmn002... File "indexed_gzip/indexed_gzip.pyx", line 635, in indexed_gzip.indexed_gzip._IndexedGzipFile.seek indexed_gzip.indexed_gzip.CrcError: CRC/size validation failed - the GZIP data might be corrupt
+              * used `gzip -t -v` to validate CRC size for sub-13373_ses-day2_task-face_run-01_bold.nii.gz, OK
+          * sub-14858 - same as above, err on sub-14858_ses-day2_task-card_acq-VARIANTNoFmap_run-02_bold.nii.gz
+          * sub-15709 - same as above, err on sub-15709_ses-day2_task-rest_bold.nii.gz
+          * sub-17113 - no error message, log o and e incomplete - to rerun
+          * removing scans with CRC error, see **Iteration 6** above - pushed BIDS updates to input_ria, rerunning qsub calls for sub-13373 (job 1974456), sub-14858 (job 1974459), sub-15709 (job 1974460), and sub-17113 (job 1974462)
+      * Path to production inputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS
       * GitHub Link to production outputs:
       * GitHub Link to production audit: 
 
