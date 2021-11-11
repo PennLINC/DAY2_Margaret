@@ -273,10 +273,11 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
           * sub-14858 - same as above, err on sub-14858_ses-day2_task-card_acq-VARIANTNoFmap_run-02_bold.nii.gz
           * sub-15709 - same as above, err on sub-15709_ses-day2_task-rest_bold.nii.gz
           * sub-17113 - no error message, log o and e incomplete - to rerun
-          * removing scans with CRC error, see **Iteration 6** above - pushed BIDS updates to input_ria, rerunning qsub calls for sub-13373 (job 1974456), sub-14858 (job 1974459), sub-15709 (job 1974460), and sub-17113 (job 1974462)
+          * removing scans with CRC error, see **Iteration 6** above - pushed BIDS updates to input_ria, rerunning qsub calls for sub-13373 (job 1974456), sub-14858 (job 1974459), sub-15709 (job 1974460), and sub-17113 (job 1974462); ran successfully based on logs, deleted merge_ds and reran `merge_outputs.sh`. Deleted and rerunning fmriprep-audit
+      * all 125 subjecs successfully processed
       * Path to production inputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS
-      * GitHub Link to production outputs:
-      * GitHub Link to production audit: 
+      * Path to production outputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/output_ria
+      * Path to production audit: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep-audit/FMRIPREP_AUDIT.csv
 
 ### Post Processing 
 
@@ -294,4 +295,3 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
    * backup to PMACS
    * rename task entity
    * get timing files
-   * run fmriprep from command line
