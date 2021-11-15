@@ -277,7 +277,8 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
       * all 125 subjecs successfully processed
       * Path to production inputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS
       * Path to production outputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/output_ria
-      * Path to production audit: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep-audit/FMRIPREP_AUDIT.csv
+      * Path to fmriprep production audit: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep-audit/FMRIPREP_AUDIT.csv
+      * Path to freesurfer production audit: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/freesurfer-audit
 
 ### Post Processing 
 
