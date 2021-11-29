@@ -243,7 +243,12 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
    * 3 subjects (sub-13373, sub-14858, sub-15709) failed fmriprep due to CRC error, deleting nifti files identified in log outputs:
    `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/CRC_err_to_rm.txt`
     * ran `cubids-group`, no new variants (no RenameKeyGroups for non-fmap KeyGroups) - Tinashe reviewed, no need for cubids-apply/validate
-    
+
+* Timing Files
+    * created event timing files (.tsv) based on `K23_fmri_paradigm.xls` provided by Dan Wolf
+      * used stick files to create two .csv's listing all events for run-1 (task A) and run-2 (task B) respectively
+      * converted to .tsv's using `csv_to_tsv.ipynb`
+
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
 * fMRIPrep
