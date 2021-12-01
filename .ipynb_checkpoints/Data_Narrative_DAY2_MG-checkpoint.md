@@ -246,8 +246,10 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
 
 * Timing Files
     * created event timing files (.tsv) based on `K23_fmri_paradigm.xls` provided by Dan Wolf
-      * used stick files to create two .csv's listing all events for run-1 (task A) and run-2 (task B) respectively
+      * used stick files to create two .csv's listing all events for run-1 (task A) and run-2 (task B) respectively (cardA and faceA have the same timings/outcome order, just the stimuli are different; cardB and faceB have the same timings/outcomes)
+      * **ONSET TIMES IN STICK FILES REFLECT FACT THAT ANALYSIS PIPELINE DELETED FIRST 20 SECONDS=10TR OF BOLD RUNS, DURING WHICH TWO "DUMMY" TASK TRIALS OCCURRED**
       * converted to .tsv's using `csv_to_tsv.ipynb`
+    * copied .tsvs into Day2/curation/BIDS, reran `cubids-validate`; took several iterations of renaming events.tsv's so they will be correctly applied/pass validator, succeded on iteration 5 (`/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/validator_outputs/tsv5_validation.csv`)
 
 ### Preprocessing Pipelines 
 * For each pipeline (e.g. QSIPrep, fMRIPrep, XCP, C-PAC), please fill out the following information:
