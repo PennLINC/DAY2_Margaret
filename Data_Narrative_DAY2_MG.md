@@ -269,6 +269,7 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
         * error in sub-15546, sub-16181, & sub-12235 (fmap images with Dim3Size=43, unable to construct fmaps - removing all fmap images for these subjects, see **Iteration 5** above)
      * sub-12583 (test sub) doesn't have branch in output_ria but is fine in audit
        * Path to exemplar outputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/fmriprep/output_ria
+   **testing dir deleted to save space on CUBIC on 12/2/21, once production completed**
    * Production Testing:
       * ran qsub_calls.sh, submitted jobs 1831777 through 1831903
       * only 84 files in logfile, 123 branches created under output_ria
