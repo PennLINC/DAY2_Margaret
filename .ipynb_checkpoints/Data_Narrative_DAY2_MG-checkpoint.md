@@ -301,7 +301,8 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
        * inputs:
            * 4D data: sub-17165_ses-day2_task-face_run-2_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz
            * voxelwise confound list: sub-17165_ses-day2_task-face_run-2_desc-confounds_timeseries.tsv
-           
+               *need to pair down?*
+           * add additional confound EVs: lose_run2.txt, win_run2.txt, anticipation_run2.txt, cue_run2.txt
            
 * Who is using the data/for which projects are people in the lab using this data?
    * Link to project page(s) here 
