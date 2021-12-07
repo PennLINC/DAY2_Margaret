@@ -296,16 +296,15 @@ acquisition-VARIANTNumVolumesNoFmap_datatype-func_suffix-bold_task-rest
 
 * FEAT task analysis
     * fun side-quest for personal growth
-    * cloned and unzipped `fmriprep/output_ria` to `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/feat_sandbox`
-    * error using datalad get: `(margaret_reward) [wolfsatterthwaitereward@cubic-login5 feat_sandbox]$ datalad get . -r
-[INFO   ] Installing Dataset(/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/feat_sandbox) to get /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/feat_sandbox recursively 
-[INFO   ] scanning for annexed files (this may take some time) 
-install(ok): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/feat_sandbox/inputs/data (dataset)
-install(ok): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/feat_sandbox/pennlinc-containers (dataset)                                  
-[ERROR  ] Received undecodable JSON output: b"runHandler: couldn't find handler"`
-    * datalad unlock failed, not enough free space on project user (follow up with Tinashe)
+    * wrote .txt timing files using fsl_timing_create.sh
+    * running on test sub-17165, data unlocked and unzipped from fmriprep/outputs_ria to production/fmriprep_outputs_clone/fmriprep/sub-17165
+       * inputs:
+           * 4D data: sub-17165_ses-day2_task-face_run-2_space-MNI152NLin6Asym_res-2_desc-preproc_bold.nii.gz
+           * voxelwise confound list: sub-17165_ses-day2_task-face_run-2_desc-confounds_timeseries.tsv
+           
+           
 * Who is using the data/for which projects are people in the lab using this data?
-   * Link to project page(s) here  
+   * Link to project page(s) here 
 * For each post-processing analysis that has been run on this data, fill out the following
    * Who performed the analysis?
    * Where it was performed (CUBIC, PMACS, somewhere else)?
@@ -317,4 +316,4 @@ install(ok): /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/
 ### To Do 
    * backup to PMACS
    * rename task entity
-   * get timing files
+ 
