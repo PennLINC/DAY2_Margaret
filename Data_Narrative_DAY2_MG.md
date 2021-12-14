@@ -296,7 +296,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * submitted qsub_calls.sh for xcp-audit
     * wget and running bootstrap-quickunzip.sh to clone/unzip xcp outputs to xcp-derivatives; something didn't work, seemed to overwrite unzip.sh? 
       * removed and wgot again, but had typo in path to xcp dir, rerunning with corrected path: `qsub -cwd -N "d2_unzip" bootstrap-quickunzip.sh /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp` - job 213392 ("d2_unzip") has been submitted; job didn't seem to run, no outputs; see e and o output files. Rerunning from command line, renamed dir `wolf_satterthwaite_reward` to `derivatives-unzipped`
-      * concatenated `*space-MNI152NLin6Asym_desc-qc_res-2_bold.csv` outputs, plotted and saved outputs to github dir qc_plots 
+      * concatenated `*space-MNI152NLin6Asym_desc-qc_res-2_bold.csv` outputs with [xcp_qc_concat.ipynb](), plotted and saved outputs to github dir qc_plots 
         
     * Path to production inputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/merge_ds`
     * Path to xcp run command: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp/analysis/code/xcp_zip.sh`
@@ -319,11 +319,13 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
 * FEAT task analysis
     * fun side-quest for personal growth run by Margaret Gardner on CUBIC
     * wrote .txt timing files using [fsl_timing_create.sh](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/fsl_timing_create.sh)
+    * Dan provided original feat analysis files for reference, saved under `fsl_sandbox/dan_orig`
+        * "the events folder has all the stickfiles, lots of different variations. the feat directory has a feat directory for this control participant's cardA analysis: 11242_03360; the nifti images is that persons 4D bold timeseries used for that feat analysis."
     * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs
-        * ran BET on sub-15732
-
+        * ran BET on sub-15732 with default settings, pial surface not fully removed - reran with f=0.7 but removed too much, sticking with default f=0.5
+        * running FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0
+        file:///gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/report_reg.html
 
 ### To Do 
    * backup to PMACS
    * rename task entity
- 
