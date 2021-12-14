@@ -3,6 +3,12 @@
 ### Important Links (should all be on GitHub):
 * Data Processing Flow Diagram:
    * Flow diagram that describes the lifecycle of this dataset 
+   * **Overview:**
+       * subjects/scans without usable fmaps (no SDC run in fMRIPrep):
+       * subjects/scans that failed fMRIPrep:
+       *note: gzip error, can be rerun with later version*
+       * subjects/scans that failed QC:
+       
 * DSR GitHub Project Page(Curation/Validation and Processing Queue Status):
    * Cards for tracking the curation and validation portion of the dataset. This page should be updated every time you perform an action on the data. 
    * Cards for tracking the progress of containerized pipeline runs on the data. 
@@ -35,7 +41,7 @@
 * Is the data backed up in a second location? If so, please provide the path to the backup location:
 
 * Data was stored as nifti files in `/cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2`.
-* Data was copied by Margaret to sub-project folder `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data on 9/14/2021`.
+* Data was copied by Margaret to sub-project folder `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data` on 9/14/2021.
 
 * JSON's within origial_data were updated using `cubids-add-nifti-info`.
 
@@ -256,6 +262,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
        ** reviewed with Tinashe and edited `fmriprep_zip.sh`; reran job 1424461 ("fpsub-12583") has been submitted - completed successfully
        ** ran `bash code/qsub_calls.sh`, submitted jobs 1679260 through 1679282 & merged to merge_ds (with help from Sydney & Matt - issues with merge failing since test sub-12583 had already been merged, followed their instruction to delete both sub-12583 branches since .zip files already present in merge_ds)
         * error in sub-15546, sub-16181, & sub-12235 (fmap images with Dim3Size=43, unable to construct fmaps - removing all fmap images for these subjects, see **Iteration 5** above)
+        *Note: flag `--use-syn-sdc` not included in fmriprep run call, so no susceptibility distortion correction was run for subjects without fieldmaps
      * sub-12583 (test sub) doesn't have branch in output_ria but is fine in audit
        * Path to exemplar outputs: /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/fmriprep/output_ria
    **testing dir deleted to save space on CUBIC on 12/2/21, once production completed**
@@ -275,7 +282,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
       
       * all 125 subjecs successfully processed
       * Path to production inputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS`
-      * Path to fmriprep run command: `/cbica/projects/wolf_satterthwaite_reward/Day2/production/fmriprep/analysis/code/fmriprep_zip.sh`
+      * Path to fmriprep run command: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/analysis/code/fmriprep_zip.sh`
       * Path to production outputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/output_ria`
       * Path to fmriprep production audit: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep-audit/FMRIPREP_AUDIT.csv`
       * Path to freesurfer production audit: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/freesurfer-audit`
@@ -287,14 +294,16 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * ran test subject job 203853 ("xcpsub-17838"), successful!  
     * submitted remaining jobs, successful!
     * submitted qsub_calls.sh for xcp-audit
-    * wget and running bootstrap-quickunzip.sh to clone/unzip xcp outputs to xcp-derivatives; something didn't work, seemed to overwrite unzip.sh? remove and wget again
-        * 
+    * wget and running bootstrap-quickunzip.sh to clone/unzip xcp outputs to xcp-derivatives; something didn't work, seemed to overwrite unzip.sh? 
+      * removed and wgot again, but had typo in path to xcp dir, rerunning with corrected path: `qsub -cwd -N "d2_unzip" bootstrap-quickunzip.sh /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp` - job 213392 ("d2_unzip") has been submitted; job didn't seem to run, no outputs; see e and o output files. Rerunning from command line, renamed dir `wolf_satterthwaite_reward` to `derivatives-unzipped`
+      * concatenated `*space-MNI152NLin6Asym_desc-qc_res-2_bold.csv` outputs, plotted and saved outputs to github dir qc_plots 
         
     * Path to production inputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/merge_ds`
-    * Path to xcp run command: `/cbica/projects/wolf_satterthwaite_reward/Day2/production/xcp/analysis/code/xcp_zip.sh`
-    * Path to production outputs: `/cbica/projects/wolf_satterthwaite_reward/Day2/production/xcp/output_ria`
-    * Path to xcp production audit: `/cbica/projects/wolf_satterthwaite_reward/Day2/production/xcp-audit/XCP_AUDIT.csv`
-    * Path to xcp derivatives: 
+    * Path to xcp run command: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp/analysis/code/xcp_zip.sh`
+    * Path to production outputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp/output_ria`
+    * Path to xcp production audit: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp-audit/XCP_AUDIT.csv`
+    * Path to xcp derivatives: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/derivatives-unzipped/DERIVATIVES/XCP`
+    * Path to xcp derivatives (concatenated): `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/qc_d2.csv`
 
 ### Post Processing 
            
@@ -311,6 +320,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * fun side-quest for personal growth run by Margaret Gardner on CUBIC
     * wrote .txt timing files using [fsl_timing_create.sh](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/fsl_timing_create.sh)
     * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs
+        * ran BET on sub-15732
 
 
 ### To Do 
