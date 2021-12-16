@@ -5,10 +5,10 @@
    * Flow diagram that describes the lifecycle of this dataset 
    * **Overview:**
        * subjects without usable fmaps (no SDC run in fMRIPrep): 'sub-12235' 'sub-13585' 'sub-14610' 'sub-14848' 'sub-14858' 'sub-14876' 'sub-15546' 'sub-16181' 'sub-16234' 'sub-17726'
-       *scans noted [here]()
+       *scans noted [here](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/notebooks/NoFmaps.ipynb)
        * subjects/scans that failed fMRIPrep: sub-13373_ses-day2_task-face_run-01_bold.nii.gz, sub-14858_ses-day2_task-card_run-02_bold.nii.gz, sub-15709_ses-day2_task-rest_bold.nii.gz
        *note: gzip error, can be rerun with later version*
-       * subjects/scans with poor QC: sub-15433 (euler=782), 
+       * subjects/scans with poor QC: sub-15433 T1w (euler=782); sub-17378 card1, card2, face1, face2 (normCrossCorr <0.8); sub-15276 face2 (normCrossCorr <0.8); sub-15433 card 2 (normCrossCorr <0.8); 
        *note: paths to XCP-generated .html reports for each subject and concatenated qc values provided below*
        
 * DSR GitHub Project Page(Curation/Validation and Processing Queue Status):
@@ -23,28 +23,25 @@
 
 ### Data Acquisition
 
-* Who is responsible for acquiring this data?
-* Do you have a DUA? Who is allowed to access the data?
-* Where was the data acquired? 
-* Describe the data. What type of information do we have? Things to specify include:
+* Data acquired by Dan Wolf
+* Describe the data:
    * number of subjects = 125
    * types of images = bold (2 runs task-face, 2 runs task-card, rest), T1w, T2w, DWI
-   * demographic data
-   * clinical/cognitive data
-   * any canned QC data
-   * any preprocessed or derived data
+   *note: run1=task version A and run2 = task version B according to json SeriesDescription, see [task-match.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/f35fb7bdb2422b72d42d9328dd5644e7b5ddba12/notebooks/task-match.ipynb)*
+       * T1w = 125 subj
+       * T2w = 3 subj
+       * card_run-01 = 124 subj
+       * card_run-02 = 124 subj
+       * face_run-01 = 123 subj
+       * face_run-02 = 124 subj
+       * rest = 114 subj
+       * fmap = 124 subj
+       * dwi = 3 subj
 
 ### Download and Storage 
 
-* Who is responsible for downloading this data?
-* From where was the data downloaded?
-* Where is it currently being stored?
-* What form is the data in upon intial download (DICOMS, NIFTIS, something else?)
-* Is the data backed up in a second location? If so, please provide the path to the backup location:
-
 * Data was stored as nifti files in `/cbica/projects/wolf_satterthwaite_reward/original_data/bidsdatasets/day2`.
 * Data was copied by Margaret to sub-project folder `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/original_data` on 9/14/2021.
-
 * JSON's within origial_data were updated using `cubids-add-nifti-info`.
 
 * Listing metadata fields using `cubids-print-metadata-fields` resulted:
@@ -135,7 +132,7 @@
 
 ### Curation Process
 
-* Data curation by Margaret Gardner for NGG rotation program.
+* Data curation by Margaret Gardner for NGG rotation.
 * GitHub Link to curation scripts/heurstics: 
 * Link to final CuBIDS csvs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration6`
 
@@ -298,7 +295,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * submitted qsub_calls.sh for xcp-audit
     * wget and running bootstrap-quickunzip.sh to clone/unzip xcp outputs to xcp-derivatives; something didn't work, seemed to overwrite unzip.sh? 
       * removed and wgot again, but had typo in path to xcp dir, rerunning with corrected path: `qsub -cwd -N "d2_unzip" bootstrap-quickunzip.sh /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp` - job 213392 ("d2_unzip") has been submitted; job didn't seem to run, no outputs; see e and o output files. Rerunning from command line, renamed dir `wolf_satterthwaite_reward` to `derivatives-unzipped`
-      * concatenated `*space-MNI152NLin6Asym_desc-qc_res-2_bold.csv` outputs with [xcp_qc_concat.ipynb](), plotted and saved outputs to github dir qc_plots 
+      * concatenated `*space-MNI152NLin6Asym_desc-qc_res-2_bold.csv` outputs with [xcp_qc_concat.ipynb](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/notebooks/xcp_qc_concat.ipynb), plotted and saved outputs to github dir qc_plots 
         
     * Path to production inputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/merge_ds`
     * Path to xcp run command: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp/analysis/code/xcp_zip.sh`
@@ -326,9 +323,13 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs
         * ran BET on sub-15732 with default settings, pial surface not fully removed - reran with f=0.7 but removed too much, sticking with default f=0.5
         * running FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0
-        * error in Registration: Could not find a supported file with prefix "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/example_func.nii.gz"
-        * talked to Greer and discovered error was in bet outputting .hdr/.imgs instead of .nii.gz - need to define FSLOUTPUTTYPE=NIFTI_GZ. Removed all fsl outputs/reverting to raw BIDs to run again
-
+            * error in Registration: Could not find a supported file with prefix "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/example_func.nii.gz"
+            * talked to Greer and discovered error was in bet outputting .hdr/.imgs instead of .nii.gz - need to define FSLOUTPUTTYPE=NIFTI_GZ. Removed all fsl outputs/reverting to raw BIDs to run again
+        
+         * ran BET on sub-15732 with default settings (-f 0.5), extraction looks good
+         * ran FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0; successful, 
+         * ran Stats on sub-15732 card run-1 with 4 EVs (cue, anticipation, win, lose) and 3 contrasts: (0, 0, 1, 0); (0, 0, 0, 1); (0, 0, 1, -1)
+         *to do - run full analysis and edit design file to iterate across subjects/runs
 
 ### To Do 
    * backup to PMACS
