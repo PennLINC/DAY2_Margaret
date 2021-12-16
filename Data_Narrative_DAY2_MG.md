@@ -4,10 +4,12 @@
 * Data Processing Flow Diagram:
    * Flow diagram that describes the lifecycle of this dataset 
    * **Overview:**
-       * subjects/scans without usable fmaps (no SDC run in fMRIPrep):
-       * subjects/scans that failed fMRIPrep:
+       * subjects without usable fmaps (no SDC run in fMRIPrep): 'sub-12235' 'sub-13585' 'sub-14610' 'sub-14848' 'sub-14858' 'sub-14876' 'sub-15546' 'sub-16181' 'sub-16234' 'sub-17726'
+       *scans noted [here]()
+       * subjects/scans that failed fMRIPrep: sub-13373_ses-day2_task-face_run-01_bold.nii.gz, sub-14858_ses-day2_task-card_run-02_bold.nii.gz, sub-15709_ses-day2_task-rest_bold.nii.gz
        *note: gzip error, can be rerun with later version*
-       * subjects/scans that failed QC:
+       * subjects/scans with poor QC: sub-15433 (euler=782), 
+       *note: paths to XCP-generated .html reports for each subject and concatenated qc values provided below*
        
 * DSR GitHub Project Page(Curation/Validation and Processing Queue Status):
    * Cards for tracking the curation and validation portion of the dataset. This page should be updated every time you perform an action on the data. 
@@ -324,7 +326,9 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs
         * ran BET on sub-15732 with default settings, pial surface not fully removed - reran with f=0.7 but removed too much, sticking with default f=0.5
         * running FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0
-        file:///gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/report_reg.html
+        * error in Registration: Could not find a supported file with prefix "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/example_func.nii.gz"
+        * talked to Greer and discovered error was in bet outputting .hdr/.imgs instead of .nii.gz - need to define FSLOUTPUTTYPE=NIFTI_GZ. Removed all fsl outputs/reverting to raw BIDs to run again
+
 
 ### To Do 
    * backup to PMACS
