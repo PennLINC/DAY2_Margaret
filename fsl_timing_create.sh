@@ -9,11 +9,11 @@ cd /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS
 cat task-face_run-01_events.tsv | awk '{if ($3=="cue") {print $1, $2, "1"}}' > cue_run1.txt
 cat task-face_run-01_events.tsv | awk '{if ($3=="anticipation") {print $1, $2, "1"}}' > anticipation_run1.txt
 cat task-face_run-01_events.tsv | awk '{if ($3=="win_outcome") {print $1, $2, "1"}}' > win_run1.txt
-cat task-face_run-01_events.tsv | awk '{if ($3=="win_outcome") {print $1, $2, "1"}}' > lose_run1.txt
+cat task-face_run-01_events.tsv | awk '{if ($3=="lose_outcome") {print $1, $2, "1"}}' > lose_run1.txt
 
 cat task-face_run-02_events.tsv | awk '{if ($3=="cue") {print $1, $2, "1"}}' > cue_run2.txt
 cat task-face_run-02_events.tsv | awk '{if ($3=="anticipation") {print $1, $2, "1"}}' > anticipation_run2.txt
 cat task-face_run-02_events.tsv | awk '{if ($3=="win_outcome") {print $1, $2, "1"}}' > win_run2.txt
-cat task-face_run-02_events.tsv | awk '{if ($3=="win_outcome") {print $1, $2, "1"}}' > lose_run2.txt
+cat task-face_run-02_events.tsv | awk '{if ($3=="lose_outcome") {print $1, $2, "1"}}' > lose_run2.txt
 
 mv ./*_run*.txt /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production
