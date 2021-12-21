@@ -330,7 +330,8 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
          * ran FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0; successful, 
          * ran Stats on sub-15732 card run-1 with 4 EVs (cue, anticipation, win, lose) and 3 contrasts: (0, 0, 1, 0); (0, 0, 0, 1); (0, 0, 1, -1)
          * running full analyses on sub-15732 card run-1 with 4 EVs (cue, anticipation, win, lose) and 3 contrasts: (0, 0, 1, 0); (0, 0, 0, 1); (0, 0, 1, -1); successful, removed old feat directories (preprocessing/stats only)
-         * duplicating/editing design.fsf to create seperate design.fsf's for each task/run combo
+         * duplicating/editing design.fsf to github, create seperate design.fsf's for each task/run combo (starting with card1, potentially iterate across card/task in the future since they have identical EVs)
+         * testing `design_card1.fsf` on sub-16291, ran successfully
          *to do - run full analysis and edit design file to iterate across subjects/runs
 
 ### To Do 

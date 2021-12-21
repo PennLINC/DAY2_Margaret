@@ -273,13 +273,13 @@ set fmri(totalVoxels) 23330816
 set fmri(ncopeinputs) 0
 
 # 4D AVW data or FEAT directory (1)
-set feat_files(1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/sub-15732/ses-day2/func/sub-15732_ses-day2_task-card_run-01_bold"
+set feat_files(1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/SUBJ/ses-day2/func/SUBJ_ses-day2_task-card_run-01_bold"
 
 # Add confound EVs text file
 set fmri(confoundevs) 0
 
 # Subject's structural image for analysis 1
-set highres_files(1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/sub-15732/ses-day2/anat/sub-15732_ses-day2_T1w_brain"
+set highres_files(1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/SUBJ/ses-day2/anat/SUBJ_ses-day2_T1w_brain"
 
 # EV 1 title
 set fmri(evtitle1) "cue"
