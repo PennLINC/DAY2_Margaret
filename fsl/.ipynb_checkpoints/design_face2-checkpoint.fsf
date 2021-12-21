@@ -30,7 +30,7 @@ set fmri(featwatcher_yn) 1
 set fmri(sscleanup_yn) 0
 
 # Output directory
-set fmri(outputdir) "card1"
+set fmri(outputdir) "face2"
 
 # TR(s)
 set fmri(tr) 2.000000 
@@ -273,7 +273,7 @@ set fmri(totalVoxels) 23330816
 set fmri(ncopeinputs) 0
 
 # 4D AVW data or FEAT directory (1)
-set feat_files(1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/SUBJ/ses-day2/func/SUBJ_ses-day2_task-card_run-01_bold"
+set feat_files(1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/SUBJ/ses-day2/func/SUBJ_ses-day2_task-face_run-02_bold"
 
 # Add confound EVs text file
 set fmri(confoundevs) 0
@@ -314,7 +314,7 @@ set fmri(tempfilt_yn1) 1
 set fmri(deriv_yn1) 1
 
 # Custom EV file (EV 1)
-set fmri(custom1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/cue_run1.txt"
+set fmri(custom1) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/cue_run2.txt"
 
 # Gamma sigma (EV 1)
 set fmri(gammasigma1) 3
@@ -370,7 +370,7 @@ set fmri(tempfilt_yn2) 1
 set fmri(deriv_yn2) 1
 
 # Custom EV file (EV 2)
-set fmri(custom2) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/anticipation_run1.txt"
+set fmri(custom2) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/anticipation_run2.txt"
 
 # Gamma sigma (EV 2)
 set fmri(gammasigma2) 3
@@ -426,7 +426,7 @@ set fmri(tempfilt_yn3) 1
 set fmri(deriv_yn3) 1
 
 # Custom EV file (EV 3)
-set fmri(custom3) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/win_run1.txt"
+set fmri(custom3) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/win_run2.txt"
 
 # Gamma sigma (EV 3)
 set fmri(gammasigma3) 3
@@ -482,7 +482,7 @@ set fmri(tempfilt_yn4) 1
 set fmri(deriv_yn4) 1
 
 # Custom EV file (EV 4)
-set fmri(custom4) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/lose_run1.txt"
+set fmri(custom4) "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/Day2MG_GitHub/fsl/lose_run2.txt"
 
 # Gamma sigma (EV 4)
 set fmri(gammasigma4) 3

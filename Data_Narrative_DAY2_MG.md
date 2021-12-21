@@ -320,7 +320,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * wrote .txt timing files using [fsl_timing_create.sh](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/fsl_timing_create.sh)
     * Dan provided original feat analysis files for reference, saved under `fsl_sandbox/dan_orig`
         * "the events folder has all the stickfiles, lots of different variations. the feat directory has a feat directory for this control participant's cardA analysis: 11242_03360; the nifti images is that persons 4D bold timeseries used for that feat analysis."
-    * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs; scripts 
+    * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs; scripts run from git repo
         * ran BET on sub-15732 with default settings, pial surface not fully removed - reran with f=0.7 but removed too much, sticking with default f=0.5
         * running FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0
             * error in Registration: Could not find a supported file with prefix "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/example_func.nii.gz"
@@ -332,6 +332,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
          * running full analyses on sub-15732 card run-1 with 4 EVs (cue, anticipation, win, lose) and 3 contrasts: (0, 0, 1, 0); (0, 0, 0, 1); (0, 0, 1, -1); successful, removed old feat directories (preprocessing/stats only)
          * duplicating/editing design.fsf to github, create seperate design.fsf's for each task/run combo (starting with card1, potentially iterate across card/task in the future since they have identical EVs)
          * testing `design_card1.fsf` on sub-16291, ran successfully
+         * created design files for each task/run and updated run.sh
          *to do - run full analysis and edit design file to iterate across subjects/runs
 
 ### To Do 

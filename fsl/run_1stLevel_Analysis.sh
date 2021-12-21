@@ -7,7 +7,7 @@ FSLOUTPUTTYPE=NIFTI_GZ
 cd /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox
 
 #list subjects
-SUBJECTS=$(find inputs/data -type d -name 'sub-*' | cut -d '/' -f 2 )
+SUBJECTS=$(find BIDS -type d -name 'sub-*' | cut -d '/' -f 2 )
 if [ -z "${SUBJECTS}" ]
 then
     echo "No subjects found in input data"
@@ -30,24 +30,34 @@ for subj in ${SUBJECTS}; do
         # Copy the design files from git dir into the subject directory, and then
         # change “SUBJ” to the current subject number
         cp ../../../curation/code/Day2MG_GitHub/fsl/design_card1.fsf .
-        #cp ../../design_card2.fsf .
+        cp ../../../curation/code/Day2MG_GitHub/fsl/design_card2.fsf .
+        cp ../../../curation/code/Day2MG_GitHub/fsl/design_face1.fsf .
+        cp ../../../curation/code/Day2MG_GitHub/fsl/design_face2.fsf .
 
         # Note that we are using the | character to delimit the patterns
         # instead of the usual / character because there are / characters
         # in the pattern.
         sed -i "s|SUBJ|${subj}|g" \
             design_card1.fsf
-        #sed -i '' "s|SUBJ|${subj}|g" \
-           # design_card2.fsf
+        sed -i "s|SUBJ|${subj}|g" \
+            design_card2.fsf
+        sed -i "s|SUBJ|${subj}|g" \
+            design_face1.fsf
+        sed -i "s|SUBJ|${subj}|g" \
+            design_face2.fsf
 
         # Now everything is set up to run feat
         echo "===> Starting feat for card run 1"
         feat design_card1.fsf
-        #echo "===> Starting feat for card run 2"
-        #feat design_card2.fsf
+        echo "===> Starting feat for card run 2"
+        feat design_card2.fsf
+        echo "===> Starting feat for face run 1"
+        feat design_face1.fsf
+        echo "===> Starting feat for face run 2"
+        feat design_face2.fsf
 
-    # Go back to the BIDS directory containing all of the subjects, and repeat the loop
-    #cd ../..
+    # Go back to fsl_sandbox and repeat the loop
+    cd ../..
 
 done
 
