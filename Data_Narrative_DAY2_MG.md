@@ -1,15 +1,14 @@
 ## Data Narrative for DAY2 - Margaret's Curation
 
-### Important Links (should all be on GitHub):
-* Data Processing Flow Diagram:
-   * Flow diagram that describes the lifecycle of this dataset 
-   * **Overview:**
-       * subjects without usable fmaps (no SDC run in fMRIPrep): 'sub-12235' 'sub-13585' 'sub-14610' 'sub-14848' 'sub-14858' 'sub-14876' 'sub-15546' 'sub-16181' 'sub-16234' 'sub-17726'
-       *scans noted [here](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/notebooks/NoFmaps.ipynb)
-       * subjects/scans that failed fMRIPrep: sub-13373_ses-day2_task-face_run-01_bold.nii.gz, sub-14858_ses-day2_task-card_run-02_bold.nii.gz, sub-15709_ses-day2_task-rest_bold.nii.gz
-       *note: gzip error, can be rerun with later version*
-       * subjects/scans with poor QC: sub-15433 T1w (euler=782); sub-17378 card1, card2, face1, face2 (normCrossCorr <0.8); sub-15276 face2 (normCrossCorr <0.8); sub-15433 card 2 (normCrossCorr <0.8); 
-       *note: paths to XCP-generated .html reports for each subject and concatenated qc values provided below*
+### Data Processing Flow & Important Links:
+* Flow diagram that describes the lifecycle of this dataset curation and preprocessing may be viewed [here](https://github.com/PennLINC/DAY2_Margaret/blob/c45c9e9e6a7837f698f430677cf323aca0395f5e/Day2%20Project%20Update.pdf)
+* **Overview:**
+   * subjects without usable fmaps (no SDC run in fMRIPrep): 'sub-12235' 'sub-13585' 'sub-14610' 'sub-14848' 'sub-14858' 'sub-14876' 'sub-15546' 'sub-16181' 'sub-16234' 'sub-17726'
+    *scans noted [here](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/notebooks/NoFmaps.ipynb)
+   * subjects/scans that failed fMRIPrep: sub-13373_ses-day2_task-face_run-01_bold.nii.gz, sub-14858_ses-day2_task-card_run-02_bold.nii.gz, sub-15709_ses-day2_task-rest_bold.nii.gz
+    *note: gzip error, can be rerun with later version*
+   * subjects/scans with poor QC: sub-15433 T1w (euler=782); sub-17378 card1, card2, face1, face2 (normCrossCorr <0.8); sub-15276 face2 (normCrossCorr <0.8); sub-15433 card 2 (normCrossCorr <0.8); 
+    *note: paths to XCP-generated .html reports for each subject and concatenated qc values provided below*
        
 * DSR GitHub Project Page(Curation/Validation and Processing Queue Status):
    * Cards for tracking the curation and validation portion of the dataset. This page should be updated every time you perform an action on the data. 
@@ -132,22 +131,19 @@
 
 ### Curation Process
 
-* Data curation by Margaret Gardner for NGG rotation.
-* GitHub Link to curation scripts/heurstics: 
+* Data curation by Margaret Gardner for NGG rotation on the CUBIC project user `wolfsatterthwaitereward`
 * Link to final CuBIDS csvs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration6`
 
 #### BIDS Validation:
 
-* Ran `cubids-validate` and `cubids-group` simultanously as per The WAY, outputs saved to `sandbox/validator_outputs/iteration1`.
-
-* Iteration 1:
+* Iteration 1 (Ran `cubids-validate` and `cubids-group` simultanously as per The WAY, outputs saved to `sandbox/validator_outputs/iteration1`):
     EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 counts
     INCONSISTENT_SUBJECTS ( Not all subjects contain the same files. Each subject should contain the same number of files with the same naming unless some files are known to be missing. ) : 806 counts
     INCONSISTENT_PARAMETERS ( Not all subjects/sessions/runs have the same scanning parameters. ) : 24 subjects
     README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 subjects
     NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 subjects
 
-* Iteration 1.2 (Reran `cubids-validate` with `--ignore_nifti_headers` and `--ignore_subject_consistency`, no modifications to datafiles:
+* Iteration 1.2 (Reran `cubids-validate` with `--ignore_nifti_headers` and `--ignore_subject_consistency`, no modifications to datafiles):
     EVENTS_TSV_MISSING ( Task scans should have a corresponding events.tsv file. If this is a resting state scan you can ignore this warning or rename the task to include the word "rest". ) : 495 scans
     README_FILE_MISSING ( The recommended file /README is missing. See Section 03 (Modality agnostic files) of the BIDS specification. ) : 1 count
     NO_AUTHORS ( The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. ) : 1 count
@@ -212,7 +208,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
           * HEAD is now at 26b23ee Renamed IntendedFors
           * HEAD is now at edfb983 updating .ipynb
  
- * Iteration 4  
+* Iteration 4  
    * successfully removed all VARIANT intendedfors, rerunning:
    `cubids-group --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/iteration4/iter4`
    * reviewed groupings against iter2 using [group_compare.ipynb](https://github.com/PennLINC/DAY2_Margaret/blob/a3708a7c5f8559cb67f8aea83c7e853aed9afea0/notebooks/group_compare.ipynb), no changes. Renamed the lengthy T1w keygroups per Tinashe's request: 
@@ -225,7 +221,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     README_FILE_MISSING : 1 count
     NO_AUTHORS : 1 count
 
- * Iteration 5 
+* Iteration 5 
    * 3 exemplar subjects (sub-15546, sub-16181, & sub-12235) failed running fmriprep due to abberant image shape (64, 64, 43) in fmap images. Each subject compromised a unique Acquisition group. Deleting all fmap images (listed using Dim3_err_fmaps.ipynb):
    `cubids-purge --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/sandbox/fmap_to_rm2.txt`
    * ran `cubids-group`, new groups ID'd for above subj (NoFMap) that will be merged into existing NoFMap groups with `cubids-apply`
@@ -320,7 +316,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * wrote .txt timing files using [fsl_timing_create.sh](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/fsl_timing_create.sh)
     * Dan provided original feat analysis files for reference, saved under `fsl_sandbox/dan_orig`
         * "the events folder has all the stickfiles, lots of different variations. the feat directory has a feat directory for this control participant's cardA analysis: 11242_03360; the nifti images is that persons 4D bold timeseries used for that feat analysis."
-    * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs; scripts run from git repo
+    * running on raw data from 3 subj randomly selected from Acquisition Group 1 (sub-16291, sub-15732, & sub-15761) in `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox` to familiarize with fsl workflow before adapting to accomodate fmriprep outputs; scripts run from git repo directory `fsl`
         * ran BET on sub-15732 with default settings, pial surface not fully removed - reran with f=0.7 but removed too much, sticking with default f=0.5
         * running FEAT preprocessing on sub-15732 card run-01: deleting 10 vol, set smoothing to 6.0
             * error in Registration: Could not find a supported file with prefix "/gpfs/fs001/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/fsl_sandbox/BIDS/card_run-01.feat/example_func.nii.gz"
@@ -332,9 +328,17 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
          * running full analyses on sub-15732 card run-1 with 4 EVs (cue, anticipation, win, lose) and 3 contrasts: (0, 0, 1, 0); (0, 0, 0, 1); (0, 0, 1, -1); successful, removed old feat directories (preprocessing/stats only)
          * duplicating/editing design.fsf to github, create seperate design.fsf's for each task/run combo (starting with card1, potentially iterate across card/task in the future since they have identical EVs)
          * testing `design_card1.fsf` on sub-16291, ran successfully
-         * created design files for each task/run and updated run.sh
-         *to do - run full analysis and edit design file to iterate across subjects/runs
+         * created design files for each task/run and updated [run_1stLevel_Analysis.sh](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/fsl/run_1stLevel_Analysis.sh) 
+         * ran [run_1stLevel_Analysis.sh](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/fsl/run_1stLevel_Analysis.sh) *note: outputs and QCs not reviewed since this was for an exercise - would review and/or rerun if intending to use outputs in the future*
+             * removed sub-16291/card1+.feat dir
+         * running 2nd level fixed-effects for card task (averaged across run 1 and 2 for each subj), output to `fsl_sandbox/card_2ndLevel.gfeat`
+         * running 3rd level FLAME 1 model for card cope 3 (win-lose), default thresholds (cluster z=3.1, p=0.05);  inputs ``fsl_sandbox/card_2ndLevel.gfeat/cope3.feat/stats/cope?.nii.gz`; output to `fsl_sandbox/card_3rdLevel_win-lose.gfeat` 
+             * also ran uncorrected analysis to `fsl_sandbox/card_3rdLevel_win-lose_uncorr.gfeat` just for fun
+         
 
 ### To Do 
    * backup to PMACS
-   * rename task entity
+   * rename task entity (1 and 2 vs A and B)
+   * script group level task analyses in FEAT
+   * bootstrap FEAT analyses for datalad
+   * adapt feat script to accept fmriprep outputs
