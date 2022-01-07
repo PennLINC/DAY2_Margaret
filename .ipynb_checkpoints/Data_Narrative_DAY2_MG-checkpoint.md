@@ -246,7 +246,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
 
 ### Preprocessing Pipelines 
 
-* fMRIPrep
+* fMRIPrep (version 20.2.3)
    * Margaret Gardner is responsible for running preprocessing pipelines/audits on CUBIC
    * Exemplar Testing:
      * ran `cubids-copy-exemplars --use-datalad /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/BIDS /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/testing/exemplars_dir /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/curation/code/iterations/apply2_AcqGrouping.csv`
@@ -290,7 +290,7 @@ datalad.support.exceptions.CommandError: CommandError: 'bash code/iterations/app
     * submitted remaining jobs, successful!
     * submitted qsub_calls.sh for xcp-audit
     * wget and running bootstrap-quickunzip.sh to clone/unzip xcp outputs to xcp-derivatives; something didn't work, seemed to overwrite unzip.sh? 
-      * removed and wgot again, but had typo in path to xcp dir, rerunning with corrected path: `qsub -cwd -N "d2_unzip" bootstrap-quickunzip.sh /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp` - job 213392 ("d2_unzip") has been submitted; job didn't seem to run, no outputs; see e and o output files. Rerunning from command line, renamed dir `wolf_satterthwaite_reward` to `derivatives-unzipped`
+      * removed and wgot again, but had typo in path to xcp dir, rerunning with corrected path: `qsub -cwd -N "d2_unzip" bootstrap-quickunzip.sh /cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/xcp` - job 213392 ("d2_unzip") has been submitted; job didn't seem to run, no outputs; see e and o output files. Rerunning from terminal (not qsub-ed), renamed dir `wolf_satterthwaite_reward` to `derivatives-unzipped`
       * concatenated `*space-MNI152NLin6Asym_desc-qc_res-2_bold.csv` outputs with [xcp_qc_concat.ipynb](https://raw.githubusercontent.com/PennLINC/DAY2_Margaret/main/notebooks/xcp_qc_concat.ipynb), plotted and saved outputs to github dir qc_plots 
         
     * Path to production inputs: `/cbica/projects/wolf_satterthwaite_reward/Margaret/Day2/production/fmriprep/merge_ds`
